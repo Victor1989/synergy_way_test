@@ -1,0 +1,60 @@
+{% extends "users/base.html" %}
+{%block title%}
+Users
+{%endblock%}
+{% block content %}
+<script>
+    var elements_num = {{num_of_elements}};
+</script>
+<table style="width:50%; margin-left:auto; margin-right:auto">
+    <caption>
+    <div style="width:100%; text-align:center">
+        <a href="{%url 'users:create' %}" style="display:inline-block; float:left"><img title="Add User" src="/media/add-icon.png"></a> 
+        <form method="get" action="{%url 'users:users'%}" style="display:inline-block; float:left">
+            <input type="hidden" name="page" value="{{curr_page}}">
+            <input type="hidden" name="num_of_pages" value="{{num_of_elements}}">
+            <input type="submit" style="background: url('/media/search-button.png'); border: 0; width:40; height:40" value="" alt="Search" title="Search"><input name="name"  type="text" style="-webkit-border-radius: 10px;">
+        </form>
+        <span style="display:inline-block; font-size: xx-large; float:left">Users</span>
+        <select id="sel" style="float: right; -webkit-border-radius: 10px; background-color: white; color:black; display:inline-block" onchange="change_elements_number(this, {{curr_page}})">
+            <option value="1">1</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+    <caption>
+    <thead>
+        <th style="background-color:grey; color:white; text-align:left">NAME</th>
+        <th style="background-color:grey; color:white; text-align:left">E-MAIL</th>
+        <th style="background-color:grey; color:white; text-align:left">STATUS</th>
+        <th style="background-color:grey; color:white; text-align:left">ACTION</th>
+    <thead>
+    <tbody>
+        {% for user in Users%}
+        <tr id={{user.0}}>
+            <td style="border-bottom: 1px solid black;">{{user.1}}</td>
+            <td style="border-bottom: 1px solid black;">{{user.2}}</td>
+            <td style="border-bottom: 1px solid black;">{{user.5}}</td>
+            <td style="border-bottom: 1px solid black;">
+                <a href="http://127.0.0.1:8000/users/change/?user_id={{user.0}}"><img alt="Edit User" title="Edit User" src="/media/edit-icon.png"></a>
+                <a href="#" id="delete_user" onclick="delete_f({{user.0}}, this)"><img alt="Delete User" title="Delete User" src="/media/delete-icon.png"></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+{% block footer %}
+    <div style="width: 30%; margin:0 auto; text-align:center">
+    <ul class="pagination pag-circle" style="">
+        <li><a href="#" id="prev" onclick="prev_next_page(this, {{num_of_pages}}, {{curr_page}}, {{num_of_elements}})"><i class="material-icons"><<</i></a></li>
+        {% for page in pages %}
+        {% if page == curr_page %}
+            <li><a href="http://127.0.0.1:8000/users/?page={{page}}&num_of_elements={{num_of_elements}}" id="{{page}}" style="color:white; background-color:grey">{{page}}</a></li>
+        {% else %}
+            <li><a href="http://127.0.0.1:8000/users/?page={{page}}&num_of_elements={{num_of_elements}}" id="{{page}}">{{page}}</a></li>
+        {% endif %}
+        {% endfor %}
+        <li><a href="#" id="next" onclick="prev_next_page(this, {{num_of_pages}}, {{curr_page}}, {{num_of_elements}})"><i class="material-icons">>></i></a></li>
+    </ul>
+    </div>
+{% endblock %}

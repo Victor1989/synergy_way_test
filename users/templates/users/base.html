@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"></link>
+        <script type="text/javascript" src="/media/jquery-3.0.0.min.js"></script>
+        <script type="text/javascript" src="/media/main.js"></script>
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <table style="width:100%; border-collapse:collapse">
+            <thead>
+                <th style="background-color: black; color: white">Test For You</th>
+                <th style="background-color: black; text-align: right">
+                    <a href="{% url 'users:users' %}" style="color:white; text-decoration:none">Users</a>
+                </th>
+                <th style="background-color: black;  text-align: left">
+                    <a href="{% url 'users:courses' %}" style="color:white; text-decoration:none">Courses</a>
+                </th>
+            </thead>
+        </table>
+        {% block content %}{% endblock %}
+        <footer style="bottom:0; position:fixed; width:100%; margin:auto">
+            {% block footer %}{% endblock %}
+        </footer>
+    </body>
+</html>

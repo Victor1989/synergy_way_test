@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <script type="text/javascript" src="/media/jquery-3.0.0.min.js"></script>
+        <script type="text/javascript" src="/media/main.js"></script>            
+        <title>
+            Change User
+        </title>
+    </head>
+    <body>
+        <div style="width:100%; text-align:center">
+            <input id="message" style="float:right; -webkit-border-radius: 10px; border-color:green; color:green" value="Changes saved">
+            <a href="{% url 'users:users'%}" style="float:left"><img src="/media/back-icon.png"></a>
+            <span style="font-size:xx-large;">Change User</span>
+            <form id="change_form" action="http://127.0.0.1:8000/users/change/">
+                {% csrf_token %}
+                <input type="hidden" name="user_id" value="{{user_id}}">
+                Name:<br>
+                <input type="text" name="name" style="-webkit-border-radius: 10px;" pattern="[A-Za-z]+" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('This is required field. Only alphabetical symbols are allowed')" required disabled value="{{name}}">
+                <br>
+                E-Mail:<br>
+                <input type="email" name="email" style="-webkit-border-radius: 10px;" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('This is required field. Email should be correct (example: aaa@fdd.com)')" required value="{{email}}">
+                <br>
+                Phone:<br>
+                <input type="text" name="phone" style="-webkit-border-radius: 10px;" pattern="380\d{9}" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Invalid number. Example 3080925057633')" value="{{phone}}">
+                <br>
+                Mobilephone:<br>
+                <input type="text" name="mobilephone" style="-webkit-border-radius: 10px;" pattern="380\d{9}" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Invalid number. Example 3080925057633')" value="{{mobilephone}}">
+                <br>
+                Status:<br>
+                <select name="status">
+                    {% for opt in status_options %}
+                        {% ifequal opt status %}
+                            <option class="selected">{{opt}}</option>
+                        {% else %}
+                            <option>{{opt}}</option>
+                        {% endifequal %}
+                    {% endfor %}
+                </select>
+                <br>
+                <input type="submit" value="Save" style="background-color: green; color: white; -webkit-border-radius: 10px">
+            </form>
+        </div>
+    </body>
+</html>

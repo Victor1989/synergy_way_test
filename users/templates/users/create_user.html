@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <script type="text/javascript" src="/media/jquery-3.0.0.min.js"></script>
+        <script type="text/javascript" src="/media/main.js"></script>            
+        <title>
+            Create User
+        </title>
+    </head>
+    <body>
+        <div style="width:100%; text-align:center">
+            <input id="message" style="float:right; -webkit-border-radius: 10px; border-color:green; color:green" value="User crested successfully">
+            <a href="{% url 'users:users'%}" style="float:left"><img src="/media/back-icon.png"></a>
+            <span style="font-size:xx-large;">Create User</span>
+            <form action='http://127.0.0.1:8000/users/create/' style="" id="create_form">
+                {% csrf_token %}
+                Name:<br>
+                <input type="text" name="name" style="-webkit-border-radius: 10px;" pattern="[A-Za-z]+" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('This is required field. Only alphabetical symbols are allowed')" required>
+                <br>
+                E-Mail:<br>
+                <input type="email" name="email" style="-webkit-border-radius: 10px;" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('This is required field. Email should be correct (example: aaa@fdd.com)')" required>
+                <br>
+                Phone:<br>
+                <input type="text" name="phone" style="-webkit-border-radius: 10px;" pattern="380\d{9}" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Invalid number. Example 3080925057633')">
+                <br>
+                Mobilephone:<br>
+                <input type="text" name="mobilephone" style="-webkit-border-radius: 10px;" pattern="380\d{9}" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Invalid number. Example 3080925057633')">
+                <br>
+                Status:<br>
+                <select name="status">
+                    <option>Inactive</option>
+                    <option>Active</option>
+                </select>
+                <br>
+                <input type="submit" value="Create" style="background-color: green; color: white; -webkit-border-radius: 10px">
+            </form>
+        </div>
+    </body>
+</html>
